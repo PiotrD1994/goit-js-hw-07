@@ -1,4 +1,4 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from './gallery-items.js'; 
 // Change code below this line
 
 console.log(galleryItems);
@@ -11,7 +11,7 @@ const htmlString =   `<div class="gallery__item">
   <img 
     class="gallery__image"
     src="${item.preview}"
-    data-source="large-image.jpg"
+    data-source="${item.original}"
     alt="${item.description}"
   />
 </a>
@@ -19,19 +19,26 @@ const htmlString =   `<div class="gallery__item">
 gallery.innerHTML += htmlString
 }
  
-const gallerypictrues = document.querySelectorAll('.gallery__item')
-const galleryLinks = document.querySelectorAll('.gallery__link')
-const galleryImages = document.querySelectorAll('.gallert__image')
+gallery.addEventListener("click", choosePicture)
 
-galleryItems.addEventListener('click', imageSelect)
-
-function imageSelect(event) {
-    event.preventDefault()
-    if(event.target.nodeName !== "IMG") {
-        return
-    }
-
+function choosePicture(event) {
+  event.preventDefault()
+ if(event.target.nodeName !== "IMG") {
+  return
+ }
+ const selectedPictureSrc = event.target.getAttribute("data-source")
+ const selectedImage = document.createElement("img")
+ selectedImage.src = selectedPictureSrc
+ selectedImage.alt = event.target.getAttribute("alt")
+ const modal = basicLightbox.create(selectedImage)
+ modal.show()
 }
+
+
+
+
+
+
 
 
 
