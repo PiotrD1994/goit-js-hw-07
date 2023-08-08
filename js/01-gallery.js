@@ -30,9 +30,17 @@ function choosePicture(event) {
  const selectedImage = document.createElement("img")
  selectedImage.src = selectedPictureSrc
  selectedImage.alt = event.target.getAttribute("alt")
- const modal = basicLightbox.create(selectedImage)
+ const modal = basicLightbox.create(`<div>
+ <img src="${selectedImage.src}" alt="${selectedImage.alt}" />
+</div>`)
  modal.show()
+ modal.element().addEventListener("click", () => {
+  modal.close()
+})
 }
+
+
+
 
 
 
