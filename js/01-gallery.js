@@ -6,7 +6,8 @@ console.log(galleryItems);
 const gallery = document.querySelector('.gallery')
 
 for (const item of galleryItems) {
-const htmlString =   `<div class="gallery__item">
+const htmlString =   `<li>
+<div class="gallery__item">
 <a class="gallery__link" href="${item.original}">
   <img 
     class="gallery__image"
@@ -15,11 +16,14 @@ const htmlString =   `<div class="gallery__item">
     alt="${item.description}"
   />
 </a>
-</div>`
+</div>
+</li>`
 gallery.innerHTML += htmlString
 }
  
 gallery.addEventListener("click", choosePicture)
+
+let modal;
 
 function choosePicture(event) {
   event.preventDefault()
@@ -30,14 +34,24 @@ function choosePicture(event) {
  const selectedImage = document.createElement("img")
  selectedImage.src = selectedPictureSrc
  selectedImage.alt = event.target.getAttribute("alt")
- const modal = basicLightbox.create(`<div>
+ modal = basicLightbox.create(`<div>
  <img src="${selectedImage.src}" alt="${selectedImage.alt}" />
 </div>`)
  modal.show()
  modal.element().addEventListener("click", () => {
   modal.close()
 })
+window.addEventListener("keydown", closeEscape)
 }
+
+function closeEscape(event) {
+if (event.key === "Escape") {
+  modal.close()
+}
+}
+
+
+
 
 
 
