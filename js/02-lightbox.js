@@ -17,3 +17,10 @@ for (const item of galleryItems) {
     </li>`
     gallery.innerHTML += htmlString
     }
+
+const lightbox = new SimpleLightbox('.gallery a', {
+captionSData: 'alt',
+captionDelay: 250,
+captionPosition:"bottom",
+enableKeyboard: true,
+})
