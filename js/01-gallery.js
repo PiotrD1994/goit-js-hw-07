@@ -25,30 +25,41 @@ gallery.addEventListener("click", choosePicture)
 
 let modal;
 
+function closeEscape(event) {
+  if(event.key === "Escape") {
+    modal.close()
+  }
+}
+
 function choosePicture(event) {
   event.preventDefault()
  if(event.target.nodeName !== "IMG") {
   return
  }
+
  const selectedPictureSrc = event.target.getAttribute("data-source")
  const selectedImage = document.createElement("img")
  selectedImage.src = selectedPictureSrc
  selectedImage.alt = event.target.getAttribute("alt")
  modal = basicLightbox.create(`<div>
  <img src="${selectedImage.src}" alt="${selectedImage.alt}" />
-</div>`)
+</div>`, {
+onShow: (instance) => {
+  window.addEventListener("keydown", closeEscape)
+},
+onClose: (instance) => {
+  window.removeEventListener("keydown", closeEscape)
+}
+})
  modal.show()
  modal.element().addEventListener("click", () => {
   modal.close()
 })
-window.addEventListener("keydown", closeEscape)
 }
 
-function closeEscape(event) {
-if (event.key === "Escape") {
-  modal.close()
-}
-}
+
+
+
 
 
 
